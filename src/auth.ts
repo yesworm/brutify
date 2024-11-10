@@ -37,21 +37,55 @@ async function generateCodeChallenge(codeVerifier: string) {
 }
 
 export async function getAccessToken(clientId: string, code: string): Promise<string> {
-    const verifier = localStorage.getItem("verifier");
+    try {
+        const verifier = localStorage.getItem("verifier");
+        const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
+        
+        if (!verifier) {
+            throw new Error("No verifier found in localStorage");
+        }
 
-    const params = new URLSearchParams();
-    params.append("client_id", clientId);
-    params.append("grant_type", "authorization_code");
-    params.append("code", code);
-    params.append("redirect_uri", "http://localhost:5173/callback");
-    params.append("code_verifier", verifier!);
+        const params = new URLSearchParams();
+        params.append("client_id", clientId);
+        params.append("client_secret", clientSecret); // Add this line
+        params.append("grant_type", "authorization_code");
+        params.append("code", code);
+        params.append("redirect_uri", "http://localhost:5173/callback");
+        params.append("code_verifier", verifier);
 
-    const result = await fetch("https://accounts.spotify.com/api/token", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: params
-    });
+        console.log('Sending token request with params:', {
+            clientId,
+            code: code.substring(0, 5) + '...',
+            verifier: verifier.substring(0, 5) + '...'
+        });
 
-    const { access_token } = await result.json();
-    return access_token;
+        const result = await fetch("https://accounts.spotify.com/api/token", {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: params
+        });
+
+        if (!result.ok) {
+            const errorData = await result.json();
+            console.error('Token request failed:', {
+                status: result.status,
+                statusText: result.statusText,
+                error: errorData
+            });
+            throw new Error(`Token request failed: ${result.status} ${result.statusText}`);
+        }
+
+        const data = await result.json();
+        if (!data.access_token) {
+            console.error('No access token in response:', data);
+            throw new Error('No access token received');
+        }
+
+        return data.access_token;
+    } catch (error) {
+        console.error('Authorization error:', error);
+        throw error;
+    }
 }

@@ -4,23 +4,32 @@ import { useEffect, useState } from 'react'
 import { getAccessToken } from '../../auth'
 
 function App() {
-
     const [token, setToken] = useState<string | null>(null)
     
-useEffect(() => {
-    getToken()
-})
+    useEffect(() => {
+        let isRequesting = false;  // add flag
+        
+        const getToken = async () => {
+            if (isRequesting) return;  // skip if already requesting
+            try {
+                isRequesting = true;  // set flag
+                const clientId = import.meta.env.VITE_CLIENT_ID;
+                const params = new URLSearchParams(window.location.search);
+                const code = params.get("code");
+                
+                if (code) {
+                    const accessToken = await getAccessToken(clientId, code);
+                    setToken(accessToken);
+                }
+            } catch (error) {
+                console.error('Error in getToken:', error);
+            } finally {
+                isRequesting = false;  // reset flag
+            }
+        };
 
-const getToken = async () => {
-    const clientId = import.meta.env.VITE_CLIENT_ID;
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
-
-    if(code){
-        const accessToken = await getAccessToken(clientId, code)
-        setToken(accessToken)
-    }
-}
+        getToken();
+    }, []); 
 
     if (!token) {
         return (
@@ -28,11 +37,9 @@ const getToken = async () => {
                 <Login />
             </>
         )
-    } else {
-        <Trackinfo />
-    }
-
-
+    } 
+    
+    return <Trackinfo />
 }
 
 export default App
