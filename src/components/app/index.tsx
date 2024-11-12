@@ -1,10 +1,13 @@
 import Login from '../login'
+import Nav from '../nav'
 import Trackinfo from '../trackinfo'
 import { useEffect, useState } from 'react'
 import { getAccessToken } from '../../auth'
+import axios from 'axios'
 
 function App() {
     const [token, setToken] = useState<string | null>(null)
+    const [profile, setProfile] = useState<string | null>(null)
     
     useEffect(() => {
         let isRequesting = false;  // add flag
@@ -31,6 +34,27 @@ function App() {
         getToken();
     }, []); 
 
+useEffect(() => {
+    const getUserInfo = async () => {
+        if (!token) return;
+
+        try {
+            const { data } = await axios.get("https://api.spotify.com/v1/me", {
+                headers : {
+                    Authorization: `Bearer ${token}`,
+                    "Content-type": "application/json",
+                },
+            });
+            setProfile(data.images[0].url);
+        } catch (error) {
+            console.error("Error fetching profile:", error);
+        }
+    };
+
+        getUserInfo();
+    }, [token]); //only run when token changes
+
+
     if (!token) {
         return (
             <>
@@ -39,7 +63,12 @@ function App() {
         )
     } 
     
-    return <Trackinfo />
+    return (
+        <>
+            <Nav profile={profile}/>
+            <Trackinfo />
+        </>
+    )
 }
 
 export default App
