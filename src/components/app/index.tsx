@@ -1,5 +1,6 @@
 import Login from '../login'
 import Nav from '../nav'
+import Sidebar from '../sidebar'
 import Trackinfo from '../trackinfo'
 import { useEffect, useState } from 'react'
 import { getAccessToken } from '../../auth'
@@ -13,6 +14,7 @@ function App() {
 
     const [token, setToken] = useState<string | null>(null)
     const [profile, setProfile] = useState<string | null>(null)
+    const [playlists, setPlaylists] = useState(null);
     
     useEffect(() => {
         let isRequesting = false;  // add flag
@@ -56,9 +58,36 @@ useEffect(() => {
         }
     };
 
-        getUserInfo();
-    }, [token]); //only run when token changes
+    getUserInfo();
+}, [token]); //only run when token changes
 
+useEffect(() => {
+    const getPlaylists = async () => {
+        if (!token) return;
+
+        try {
+            const { data } = await axios.get("https://api.spotify.com/v1/me/playlists", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-type": "application/json",
+                },
+            });
+            console.log("Playlists received", data);
+            
+            // mapping  the playlists to only keep what we need
+            const playlists = data.items.map(({name, id}) => ({name, id}));
+            setPlaylists(playlists);
+            
+        } catch (error) {
+            console.error("Error fetching playlists:", error);
+            if (axios.isAxiosError(error)) {
+                console.error('Response:', error.response?.data);
+            }
+        }
+    };
+
+    getPlaylists();
+}, [token]);
 
     if (!token) {
         return (
@@ -79,7 +108,11 @@ useEffect(() => {
                 <TrackViewer>
                     <Trackinfo />
                 </TrackViewer>
-            <Side />
+            <Side>
+                <Sidebar 
+                    playlists={playlists}
+                />
+            </Side>
             </Container>
         </>
     )
