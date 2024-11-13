@@ -1,4 +1,5 @@
 import { redirectToAuthCodeFlow } from "../../auth"
+import { Navbar, H1, Button, Profile } from "./styles"
 interface NavProps {
     profile?: string | null;
 }
@@ -13,14 +14,16 @@ const Nav: React.FC<NavProps> = ({ profile }) => {
 
     return (
         <>
-            <h1>Brutify</h1>
+            <Navbar>
+                <H1>Brutify</H1>
             {!profile ? (
-                 <button onClick={handleClick}>
+                 <Button onClick={handleClick}>
                  Login
-                </button>
+                </Button>
             ) : (
-                <img src={profile} />
+                <Profile profile={profile} />
             )}
+            </Navbar>
         </>
     );
 }

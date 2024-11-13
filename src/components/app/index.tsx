@@ -4,8 +4,13 @@ import Trackinfo from '../trackinfo'
 import { useEffect, useState } from 'react'
 import { getAccessToken } from '../../auth'
 import axios from 'axios'
+import { GlobalStyle } from '../../styles'
+import { Container, TrackViewer, Side } from './styles'
 
 function App() {
+
+    const GlobalStyleProxy:any = GlobalStyle;
+
     const [token, setToken] = useState<string | null>(null)
     const [profile, setProfile] = useState<string | null>(null)
     
@@ -58,6 +63,7 @@ useEffect(() => {
     if (!token) {
         return (
             <>
+                <GlobalStyleProxy />
                 <Login />
             </>
         )
@@ -65,8 +71,16 @@ useEffect(() => {
     
     return (
         <>
-            <Nav profile={profile}/>
-            <Trackinfo />
+            <GlobalStyleProxy />
+            <Nav 
+                profile={profile}
+            />
+            <Container>
+                <TrackViewer>
+                    <Trackinfo />
+                </TrackViewer>
+            <Side />
+            </Container>
         </>
     )
 }
