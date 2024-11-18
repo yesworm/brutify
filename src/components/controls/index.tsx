@@ -1,6 +1,5 @@
 import SpotifyPlayer from 'react-spotify-web-playback';
 import { ITrack, IState} from '../../types';
-import { useEffect } from 'react';
 
 interface IProps {
     token: string | null;
@@ -20,13 +19,15 @@ const Controls:React.FC<IProps> = ( {token, tracks, setTrack} ) => {
         <>
         <SpotifyPlayer
             token={token}
+            play={play}
             uris={tracks}
             hideCoverArt={true}
             hideAttribution={true}
             inlineVolume={false}
             styles={{
                 trackArtistColor: '#fff',
-                trackNameColor: '#fff'
+                trackNameColor: '#fff',
+                sliderColor: '#fff'
             }}
             callback={ (state: IState) => {
                 console.log("Player state:", state);

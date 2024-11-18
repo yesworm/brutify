@@ -12,14 +12,14 @@ export const Box = styled.div`
 `
 
 interface IImageProps {
-    image: string;
+    $image: string;
 }
 
 export const Image = styled.div<IImageProps> `
     height: 100%;
     width: 100%;
     filter: grayscale(1);
-    background-image: ${props => `url(${props.image})`};
+    background-image: ${props => `url(${props.$image})`};
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;

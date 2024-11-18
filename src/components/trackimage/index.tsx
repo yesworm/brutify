@@ -13,7 +13,7 @@ const TrackImage:React.FC<IProps> = ({ track }) => {
     return (
         <>
         <Box>
-            <Image image={track.image}/>
+            <Image $image={track.image}/>
         </Box>
         </>
     )

@@ -21,7 +21,7 @@ interface IProfileProps {
     profile: string;
 }
 
-export const Profile = styled.image<IProfileProps>`
+export const Profile = styled.img<IProfileProps>`
     border: 2px solid #000000;
     background-image: ${props => `url(${props.profile})`};
     width: 3em;
