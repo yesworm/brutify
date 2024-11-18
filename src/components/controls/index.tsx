@@ -1,5 +1,6 @@
 import SpotifyPlayer from 'react-spotify-web-playback';
 import { ITrack, IState} from '../../types';
+import { useState } from 'react';
 
 interface IProps {
     token: string | null;
@@ -15,6 +16,8 @@ const Controls:React.FC<IProps> = ( {token, tracks, setTrack} ) => {
 
     console.log("Tracks received in Controls:", tracks);
 
+    const [play, setPlay] = useState(true)
+
     return (
         <>
         <SpotifyPlayer
@@ -24,6 +27,7 @@ const Controls:React.FC<IProps> = ( {token, tracks, setTrack} ) => {
             hideCoverArt={true}
             hideAttribution={true}
             inlineVolume={false}
+            layout={'responsive'}
             styles={{
                 trackArtistColor: '#fff',
                 trackNameColor: '#fff',
@@ -32,6 +36,9 @@ const Controls:React.FC<IProps> = ( {token, tracks, setTrack} ) => {
             callback={ (state: IState) => {
                 console.log("Player state:", state);
                 setTrack(state.track)
+                if(!state.isPlaying){
+                    setPlay(true)
+                }
             }}
         />
         </>

@@ -8,7 +8,11 @@ export const Box = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+
+
+  @media(max-width: 800px) {
+    visibility: none;
+  }
 `
 
 interface IImageProps {
@@ -16,11 +20,15 @@ interface IImageProps {
 }
 
 export const Image = styled.div<IImageProps> `
-    height: 100%;
-    width: 100%;
+    height: 80%;
+    width: 90%;
     filter: grayscale(1);
     background-image: ${props => `url(${props.$image})`};
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+
+    @media(max-width: 800px) {
+    visibility: none;
+  }
 `
