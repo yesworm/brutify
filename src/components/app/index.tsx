@@ -2,11 +2,12 @@ import Login from '../login'
 import Nav from '../nav'
 import Sidebar from '../sidebar'
 import Trackinfo from '../trackinfo'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { getAccessToken } from '../../auth'
 import axios from 'axios'
 import { GlobalStyle } from '../../styles'
 import { Container, TrackViewer, Side } from './styles'
+import { ITrack } from '../../types'
 
 function App() {
 
@@ -14,7 +15,10 @@ function App() {
 
     const [token, setToken] = useState<string | null>(null)
     const [profile, setProfile] = useState<string | null>(null)
-    const [playlists, setPlaylists] = useState(null);
+    const [playlists, setPlaylists] = useState<Array<{name: string, id: string}>>([]);
+    const [tracks, setTracks] = useState<Array<string>>([]);
+    const [track, setTrack] = useState<ITrack | null>(null);
+    const [selectedPlaylistId, setSelectedPlaylistId] = useState<string | null>(null);
     
     useEffect(() => {
         let isRequesting = false;  // add flag
@@ -40,6 +44,8 @@ function App() {
 
         getToken();
     }, []); 
+
+    console.log(track)
 
 useEffect(() => {
     const getUserInfo = async () => {
@@ -89,6 +95,60 @@ useEffect(() => {
     getPlaylists();
 }, [token]);
 
+useEffect(() => {
+    const getTracks = async (playlistId: string) => {
+        if (!token) return;
+
+        try {
+            console.log("Fetching tracks for playlist:", playlistId);
+            const { data } = await axios.get(
+                `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            
+            console.log("Raw playlist response:", data);
+            
+            if (!data.items || !Array.isArray(data.items)) {
+                console.error("No items array in response:", data);
+                return;
+            }
+
+            const uris = data.items
+                .filter((item: any) => item && item.track)
+                .map((item: any) => {
+                    console.log("Processing track:", {
+                        name: item.track.name,
+                        uri: item.track.uri,
+                        artists: item.track.artists
+                    });
+                    return item.track.uri;
+                });
+            
+            console.log("Final URIs:", uris);
+            
+            if (uris.length > 0) {
+                setTracks(uris);
+            } else {
+                console.warn("No valid track URIs found in playlist");
+            }
+        } catch (error) {
+            console.error("Error fetching tracks:", error);
+            if (axios.isAxiosError(error)) {
+                console.error('Response:', error.response?.data);
+            }
+        }
+    };
+
+    if (selectedPlaylistId) {
+        getTracks(selectedPlaylistId);
+    }
+}, [token, selectedPlaylistId]);
+
     if (!token) {
         return (
             <>
@@ -110,7 +170,12 @@ useEffect(() => {
                 </TrackViewer>
             <Side>
                 <Sidebar 
+                    track={track}
+                    token={token}
+                    tracks={tracks}
                     playlists={playlists}
+                    setSelectedPlaylistId={setSelectedPlaylistId}
+                    setTrack={setTrack}
                 />
             </Side>
             </Container>

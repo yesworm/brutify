@@ -1,3 +1,5 @@
+const REDIRECT_URI = "http://localhost:5173/callback";
+
 // redirect 
 
 export async function redirectToAuthCodeFlow(clientId: string) {
@@ -9,7 +11,7 @@ export async function redirectToAuthCodeFlow(clientId: string) {
     const params = new URLSearchParams();
     params.append("client_id", clientId);
     params.append("response_type", "code");
-    params.append("redirect_uri", "http://localhost:5173/callback");
+    params.append("redirect_uri", REDIRECT_URI);
     params.append("scope", "user-read-private user-read-recently-played user-read-email playlist-read-private playlist-read-collaborative streaming user-read-playback-position user-top-read user-library-read user-read-currently-playing user-modify-playback-state user-read-playback-state");
     params.append("code_challenge_method", "S256");
     params.append("code_challenge", challenge);
@@ -39,7 +41,6 @@ async function generateCodeChallenge(codeVerifier: string) {
 export async function getAccessToken(clientId: string, code: string): Promise<string> {
     try {
         const verifier = localStorage.getItem("verifier");
-        const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
         
         if (!verifier) {
             throw new Error("No verifier found in localStorage");
@@ -47,16 +48,24 @@ export async function getAccessToken(clientId: string, code: string): Promise<st
 
         const params = new URLSearchParams();
         params.append("client_id", clientId);
-        params.append("client_secret", clientSecret); // Add this line
         params.append("grant_type", "authorization_code");
         params.append("code", code);
-        params.append("redirect_uri", "http://localhost:5173/callback");
+        params.append("redirect_uri", REDIRECT_URI);
         params.append("code_verifier", verifier);
 
-        console.log('Sending token request with params:', {
+        console.log('Token request params:', {
             clientId,
-            code: code.substring(0, 5) + '...',
-            verifier: verifier.substring(0, 5) + '...'
+            code: code.substring(0, 10) + '...',
+            verifier: verifier.substring(0, 10) + '...',
+            redirect_uri: REDIRECT_URI
+        });
+
+        console.log('Token request details:', {
+            clientId: clientId,
+            code: code,
+            redirect_uri: REDIRECT_URI,
+            verifier: verifier,
+            params: params.toString()
         });
 
         const result = await fetch("https://accounts.spotify.com/api/token", {
@@ -77,15 +86,10 @@ export async function getAccessToken(clientId: string, code: string): Promise<st
             throw new Error(`Token request failed: ${result.status} ${result.statusText}`);
         }
 
-        const data = await result.json();
-        if (!data.access_token) {
-            console.error('No access token in response:', data);
-            throw new Error('No access token received');
-        }
-
-        return data.access_token;
+        const { access_token } = await result.json();
+        return access_token;
     } catch (error) {
-        console.error('Authorization error:', error);
+        console.error('Token request failed:', error);
         throw error;
     }
 }

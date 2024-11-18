@@ -1,12 +1,19 @@
-import Select from 'react-select'
-import Controls from '../controls'
+import Select from 'react-select';
+import Controls from '../controls';
+import { ITrack } from '../../types';
+import React from 'react';
 
 interface IProps {
     playlists: Array<{name: string, id: string}>;
+    setSelectedPlaylistId: (id: string) => void;
     getTracks: (id: string) => Promise<void>;
+    token: string | null;
+    tracks: Array<string>;
+    track: ITrack | null;
+    setTrack: React.Dispatch<React.SetStateAction<ITrack | null>>;
 }
 
-const Sidebar:React.FC<IProps> = ({ playlists, getTracks }) => {
+const Sidebar:React.FC<IProps> = ({ playlists, getTracks, token, tracks, track, setTrack, setSelectedPlaylistId }) => {
 
 
     const styles = {
@@ -25,16 +32,24 @@ const Sidebar:React.FC<IProps> = ({ playlists, getTracks }) => {
         }
     }
 
-    const handleChange = ((e:any) => {
-        console.log(e.id)
-    })
+    const handleChange = (selectedOption: any) => {
+        console.log("Selected playlist:", selectedOption);
+        if (selectedOption && selectedOption.id) {
+            setSelectedPlaylistId(selectedOption.id);
+        }
+    };
 
     return(
         <>
-            <Controls/>
+            <Controls
+                token={token}
+                tracks={tracks}
+                setTrack={setTrack}
+            />
             <Select
                 options={playlists}
-                getOptionLabel={(e:any)=>e.name}
+                getOptionLabel={(e: {name: string, id: string}) => e.name}
+                onChange={handleChange}
                 styles={styles}
                 theme={(theme) => ({
                     ...theme,
