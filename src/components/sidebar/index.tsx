@@ -1,7 +1,9 @@
 import Select from 'react-select'
+import Controls from '../controls'
 
 interface IProps {
-    playlists: Array<string>
+    playlists: Array<{name: string, id: string}>;
+    getTracks: (id: string) => Promise<void>;
 }
 
 const Sidebar:React.FC<IProps> = ({ playlists, getTracks }) => {
@@ -29,6 +31,7 @@ const Sidebar:React.FC<IProps> = ({ playlists, getTracks }) => {
 
     return(
         <>
+            <Controls/>
             <Select
                 options={playlists}
                 getOptionLabel={(e:any)=>e.name}
