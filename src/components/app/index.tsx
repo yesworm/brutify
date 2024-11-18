@@ -166,7 +166,9 @@ useEffect(() => {
             />
             <Container>
                 <TrackViewer>
-                    <Trackinfo />
+                    <Trackinfo 
+                        track={track}
+                    />
                 </TrackViewer>
             <Side>
                 <Sidebar 
