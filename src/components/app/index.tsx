@@ -2,7 +2,7 @@ import Login from '../login'
 import Nav from '../nav'
 import Sidebar from '../sidebar'
 import Trackinfo from '../trackinfo'
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, } from 'react'
 import { getAccessToken } from '../../auth'
 import axios from 'axios'
 import { GlobalStyle } from '../../styles'
@@ -11,7 +11,7 @@ import { ITrack } from '../../types'
 
 function App() {
 
-    const GlobalStyleProxy:any = GlobalStyle;
+    const GlobalStyleProxy = GlobalStyle as any;
 
     const [token, setToken] = useState<string | null>(null)
     const [profile, setProfile] = useState<string | null>(null)
@@ -45,7 +45,6 @@ function App() {
         getToken();
     }, []); 
 
-    console.log(track)
 
 useEffect(() => {
     const getUserInfo = async () => {

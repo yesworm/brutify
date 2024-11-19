@@ -14,21 +14,30 @@ interface IProps {
     setTrack: React.Dispatch<React.SetStateAction<ITrack | null>>;
 }
 
-const Sidebar:React.FC<IProps> = ({ playlists, getTracks, token, tracks, track, setTrack, setSelectedPlaylistId }) => {
+const Sidebar:React.FC<IProps> = ({ 
+    playlists, 
+    token, 
+    tracks, 
+    track, 
+    setTrack, 
+    setSelectedPlaylistId 
+}) => {
 
 
     const styles = {
-        menuList: (styles) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        menuList: (styles: any) => {
             return {
                 ...styles,
                 maxHeight: "25vh"
             };
         },
-        container: (styles) => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        container: (styles: any) => ({
             ...styles,
             width: '90%',
         }),
-        option: (styles:any, { isFocused }: { isFocused: any}) => {
+        option: (styles: React.CSSProperties, { isFocused }: { isFocused: boolean }) => {
             return {
                 ...styles,
                 backgroundColor: isFocused ? "#999999" : null,
@@ -37,6 +46,7 @@ const Sidebar:React.FC<IProps> = ({ playlists, getTracks, token, tracks, track, 
         }
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleChange = (selectedOption: any) => {
         console.log("Selected playlist:", selectedOption);
         if (selectedOption && selectedOption.id) {
@@ -60,7 +70,7 @@ const Sidebar:React.FC<IProps> = ({ playlists, getTracks, token, tracks, track, 
                 theme={(theme) => ({
                     ...theme,
                     borderRadius: 2,
-                    colours: {
+                    colors: {
                         ...theme.colors,
                         primary: 'black',
                         primary25: 'grey',

@@ -14,8 +14,6 @@ const Controls:React.FC<IProps> = ( {token, tracks, setTrack} ) => {
     // return early if no token is available - adding typeguard to confirm that token is a string 
     if (!token) return null;
 
-    console.log("Tracks received in Controls:", tracks);
-
     const [play, setPlay] = useState(true)
 
     return (
