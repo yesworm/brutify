@@ -1,5 +1,5 @@
 import { redirectToAuthCodeFlow } from "../../auth"
-import { Navbar, H1, Button, Profile } from "./styles"
+import { Navbar, Button, Profile, AsciiLogo } from "./styles"
 interface NavProps {
     profile?: string | null;
 }
@@ -12,10 +12,20 @@ const Nav: React.FC<NavProps> = ({ profile }) => {
         await redirectToAuthCodeFlow(clientId)
     }
 
+    const asciiLogo = `
+ ▄▀▀█▄▄   ▄▀▀▄▀▀▀▄  ▄▀▀▄ ▄▀▀▄  ▄▀▀▀█▀▀▄  ▄▀▀█▀▄    ▄▀▀▀█▄    ▄▀▀▄ ▀▀▄
+▐ ▄▀   █ █   █   █ █   █    █ █    █  ▐ █   █  █  █  ▄▀  ▀▄ █   ▀▄ ▄▀
+  █▄▄▄▀  ▐  █▀▀█▀  ▐  █    █  ▐   █     ▐   █  ▐  ▐ █▄▄▄▄   ▐     █  
+  █   █   ▄▀    █    █    █      █          █      █    ▐         █  
+ ▄▀▄▄▄▀  █     █      ▀▄▄▄▄▀   ▄▀        ▄▀▀▀▀▀▄   █            ▄▀   
+█    ▐   ▐     ▐              █         █       █ █             █    
+▐                             ▐         ▐       ▐ ▐             ▐    
+`;
+
     return (
         <>
             <Navbar>
-                <H1>Brutify</H1>
+                <AsciiLogo>{asciiLogo}</AsciiLogo>
             {!profile ? (
                  <Button onClick={handleClick}>
                  Login
@@ -28,4 +38,4 @@ const Nav: React.FC<NavProps> = ({ profile }) => {
     );
 }
 
-export default Nav
+export default Nav;

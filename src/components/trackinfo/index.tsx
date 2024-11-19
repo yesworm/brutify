@@ -19,11 +19,12 @@ const Trackinfo:React.FC<IProps> = ({ track }) => {
             <Circle>
                 {trackNameRepeated.split('').map((char:string, index:number) => (
                     <Text
-                        key={index}
-                        style={{
-                            transform: `rotate(${(360 / trackNameRepeated.length) * index}deg) translate(0, -80px) rotate(-${(360 / trackNameRepeated.length) * index}deg)`,
-                        }}>
-                        {char}
+                    key={index}
+                    style={{
+                      transform: `rotate(${(360 / trackNameRepeated.length) * index}deg) translateX(-50%)`,
+                    }}
+                    >
+                    {char}
                     </Text>
                 ))}
             </Circle>
@@ -32,7 +33,7 @@ const Trackinfo:React.FC<IProps> = ({ track }) => {
         </TrackDetails>
             <TickerWrapper>
                 <TickerContent>
-                    {trackArtist}
+                    {trackArtist}       {trackArtist}       {trackArtist}       {trackArtist}       {trackArtist}       {trackArtist}       {trackArtist}       {trackArtist}
                 </TickerContent>
             </TickerWrapper>
         </>

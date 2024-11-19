@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.div`
     display: flex;
     justify-content: space-between;
-    height: 84vh;
+    height: 80vh;
     width: 100vw;
     overflow: hidden;
     background-color: white;
@@ -32,7 +32,7 @@ export const Side = styled.div`
     padding: 0px 10px;
     background: white;
     
-     @media (max-width: 800px) {
+    o@media (max-width: 800px) {
     font-size: 2vh;
     min-width: 95vw;
     height: 30vh;

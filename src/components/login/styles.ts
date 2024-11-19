@@ -39,5 +39,5 @@ export const P = styled.p`
     margin-bottom: 2em;
     margin-left: 2em;
     margin-right: 1em;
-    color: black;
+    color: white;
 `

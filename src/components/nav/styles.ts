@@ -11,11 +11,15 @@ export const Navbar = styled.header`
     padding: 1em 1em 1em 0;
     box-sizing: border-box;
 `
-export const H1 = styled.h1`
-    color: #000000;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    margin-left: 0.5em;
+
+export const AsciiLogo = styled.pre`
+    font-family: monospace;
+    font-size: 1em;
+    line-height: 1;
+    margin: 0;
+    padding: 1em;
+    white-space: pre;
+    color: black;
 `
 interface IProfileProps {
     profile: string;
@@ -24,8 +28,8 @@ interface IProfileProps {
 export const Profile = styled.img<IProfileProps>`
     border: 2px solid #000000;
     background-image: ${props => `url(${props.profile})`};
-    width: 3em;
-    height: 3em;
+    width: 6em;
+    height: 6em;
     background-size: cover;
     filter: grayscale(1);
 `

@@ -27,7 +27,7 @@ const Controls:React.FC<IProps> = ( {token, tracks, setTrack} ) => {
             hideCoverArt={true}
             hideAttribution={true}
             inlineVolume={false}
-            layout={'responsive'}
+            layout={'compact'}
             styles={{
                 trackArtistColor: '#fff',
                 trackNameColor: '#fff',

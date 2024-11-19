@@ -24,6 +24,10 @@ const Sidebar:React.FC<IProps> = ({ playlists, getTracks, token, tracks, track, 
                 maxHeight: "25vh"
             };
         },
+        container: (styles) => ({
+            ...styles,
+            width: '90%',
+        }),
         option: (styles:any, { isFocused }: { isFocused: any}) => {
             return {
                 ...styles,
@@ -49,12 +53,13 @@ const Sidebar:React.FC<IProps> = ({ playlists, getTracks, token, tracks, track, 
             />
             <Select
                 options={playlists}
+                menuPlacement='auto'
                 getOptionLabel={(e: {name: string, id: string}) => e.name}
                 onChange={handleChange}
                 styles={styles}
                 theme={(theme) => ({
                     ...theme,
-                    borderRadius: 0,
+                    borderRadius: 2,
                     colours: {
                         ...theme.colors,
                         primary: 'black',
