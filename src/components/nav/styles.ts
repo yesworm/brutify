@@ -11,11 +11,6 @@ export const Navbar = styled.header`
     padding: 1em 1em 1em 0;
     box-sizing: border-box;
     overflow: hidden;
-
-    @media (max-width: 768px) {
-        padding: 0.5em;
-        min-height: 8vh;
-    }
 `
 
 export const AsciiLogo = styled.pre`
@@ -60,8 +55,6 @@ export const Button = styled.button`
     min-width: fit-content;
 
     @media (max-width: 768px) {
-        height: 2em;
-        padding: 0 1em;
-        font-size: 0.9em;
+        display: none;
     }
 `

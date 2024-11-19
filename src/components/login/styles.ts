@@ -15,6 +15,23 @@ export const Container = styled.div`
     overflow: hidden;
 `
 
+export const MobileLoginButton = styled.button`
+    display: none;  
+    
+    @media (max-width: 768px) {
+        display: block;  
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 1rem 2rem;
+        background: black;
+        color: white;
+        border: 2px solid black;
+        font-size: 1.2rem;
+    }
+`
+
 export const Right = styled.div`
     width: 50vw;
     display: flex;
