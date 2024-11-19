@@ -5,8 +5,8 @@ export const H1 = styled.h1`
     font-weight: bold;
     font-size: 10vh;
     text-align: left;
-    padding: 2rem;
-    margin-top 2rem;
+    padding: auto;
+    margin-top: 0.5rem;
     max-width: 70%;
 
     @media(max-width: 800px) {
@@ -48,12 +48,12 @@ export const TickerContent = styled.div`
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: 0.1em;
-    animation: ${marqueeScroll} 30s linear infinite;
+    animation: ${marqueeScroll} 35s linear infinite;
     padding-right: 50px; 
 
     &:after {
-        content: attr(data-text);
-        padding-left: 50px;
+        content: " ${props => props.children} "; 
+        margin-left: 4rem;  
     }
 `
 

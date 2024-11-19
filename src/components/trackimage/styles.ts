@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Box = styled.div`
     width: 80%;
     aspect-ratio: 1;
-    margin: 0;
+    margin: 2rem 0;
     display: flex;
     justify-content: center;
     border: 2px solid black;

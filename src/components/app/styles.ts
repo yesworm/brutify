@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.div`
     display: flex;
     justify-content: space-between;
-    height: 80vh;
+    height: 100vh;
     width: 100vw;
     overflow: hidden;
     background-color: white;
@@ -19,14 +19,15 @@ export const TrackViewer = styled.div`
     flex-direction: column;
     justify-content: space-between;
     background: white;
-    min-width: 70vw;
+    width: 70%;
+    height: 100%;
 `
 
 export const Side = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 30vw;
+    width: 30%;
     position: relative;
     border-left: 2px solid #000;
     padding: 0px 10px;
