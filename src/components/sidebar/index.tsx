@@ -73,21 +73,20 @@ const Sidebar:React.FC<IProps> = ({
                     colors: {
                         ...theme.colors,
                         primary: 'black',
-                        primary25: 'grey',
-                        primary50: 'grey',
-                        primary75: 'grey',
-                        neutral0: 'white',
+                        primary25: '#e6e6e6',     
+                        primary50: '#cccccc',     
+                        primary75: '#b3b3b3',     
+                        neutral0: 'white',        
                         neutral5: 'white',
                         neutral10: 'white',
-                        neutral20: 'black',
+                        neutral20: 'black',       
                         neutral30: 'black',
-                        neutral40: 'white',
-                        neutral50: 'black',
+                        neutral40: 'black',       
+                        neutral50: 'black',       
                         neutral60: 'black',
                         neutral70: 'black',
-                        neutral80: 'white',
+                        neutral80: 'black',       
                         neutral90: 'black',
-
                     }
                 })}
             />

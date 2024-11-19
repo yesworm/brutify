@@ -3,10 +3,10 @@ import styled, { keyframes } from "styled-components";
 export const H1 = styled.h1`
     color: black;
     font-weight: bold;
-    font-size: 8vh;
+    font-size: 10vh;
     text-align: left;
-    padding: auto;
-    margin: 0;
+    padding: 2rem;
+    margin-top 2rem;
     max-width: 70%;
 
     @media(max-width: 800px) {
