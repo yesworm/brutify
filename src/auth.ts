@@ -1,6 +1,4 @@
-const REDIRECT_URI = "http://localhost:5173/callback";
-
-// redirect 
+const REDIRECT_URI = "https://brutify.online/callback";
 
 export async function redirectToAuthCodeFlow(clientId: string) {
     const verifier = generateCodeVerifier(128);
