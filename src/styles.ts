@@ -12,4 +12,15 @@ export const GlobalStyle = createGlobalStyle`
     h1 {
         font-weight: normal;
     }
+    .mobile-only {
+        display: none;
+    }
+    @media (max-width: 768px) {
+        .desktop-only {
+            display: none;
+        }
+        .mobile-only {
+            display: block;
+        }
+    }
 `

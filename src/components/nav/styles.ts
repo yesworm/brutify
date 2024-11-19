@@ -10,6 +10,12 @@ export const Navbar = styled.header`
     border-bottom: 2px solid #000000;
     padding: 1em 1em 1em 0;
     box-sizing: border-box;
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+        padding: 0.5em;
+        min-height: 8vh;
+    }
 `
 
 export const AsciiLogo = styled.pre`
@@ -20,6 +26,11 @@ export const AsciiLogo = styled.pre`
     padding: 1em;
     white-space: pre;
     color: black;
+
+    @media (max-width: 768px) {
+        font-size: 0.6em; 
+        padding: 0.25em;
+    }
 `
 interface IProfileProps {
     profile: string;
@@ -32,6 +43,11 @@ export const Profile = styled.img<IProfileProps>`
     height: 6em;
     background-size: cover;
     filter: grayscale(1);
+
+    @media (max-width: 768px) {
+        width: 2em;
+        height: 2em;
+    }
 `
 export const Button = styled.button`
     height: 2.5em;
@@ -40,4 +56,12 @@ export const Button = styled.button`
     border: 0 0 0;
     background: black;
     color: white;
+    white-space: nowrap;
+    min-width: fit-content;
+
+    @media (max-width: 768px) {
+        height: 2em;
+        padding: 0 1em;
+        font-size: 0.9em;
+    }
 `
