@@ -28,20 +28,6 @@ This app uses the PKCE OAuth2 flow:
 
 See `src/auth.ts` for implementation.
 
-## 🧩 App Structure
-rc/
-├── auth.ts                # OAuth logic
-├── main.tsx               # App entry point
-├── types.d.ts             # Custom TypeScript types
-├── components/
-│   ├── app/
-│   ├── login/
-│   ├── nav/
-│   ├── sidebar/
-│   ├── trackinfo/
-│   └── …
-└── styles.ts              # Grid + layout styling
-
 ## 📈 Future Improvements
 
 - Add refresh token handling
