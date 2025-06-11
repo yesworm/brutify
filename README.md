@@ -1,50 +1,54 @@
-# React + TypeScript + Vite
+# 🎧 Brutify
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A minimalist Spotify-powered web app built with React, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+Brutify lets you authenticate with your Spotify account, fetches your top tracks, and presents them in a clean, brutalist layout. The project was built to explore OAuth2 PKCE flows, TypeScript-driven APIs, and modern SPA structure.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
 
-## Expanding the ESLint configuration
+brutify.online
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🔧 Tech Stack
 
-- Configure the top-level `parserOptions` property like this:
+- **React** with **TypeScript**
+- **Vite** for fast dev builds
+- **Spotify Web API**
+- **OAuth2 with PKCE** (no external libraries)
+- **Scoped component styles**
+- **LocalStorage** for session persistence
+- **Vercel** for deployment
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🔐 Authentication
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+This app uses the PKCE OAuth2 flow:
+- Generates `code_verifier` and `code_challenge`
+- Redirects to Spotify login
+- Exchanges token on callback
+- Access token stored in `localStorage`
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+See `src/auth.ts` for implementation.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## 🧩 App Structure
+rc/
+├── auth.ts                # OAuth logic
+├── main.tsx               # App entry point
+├── types.d.ts             # Custom TypeScript types
+├── components/
+│   ├── app/
+│   ├── login/
+│   ├── nav/
+│   ├── sidebar/
+│   ├── trackinfo/
+│   └── …
+└── styles.ts              # Grid + layout styling
+
+## 📈 Future Improvements
+
+- Add refresh token handling
+- Break out API logic into hooks
+- Introduce global state (Zustand or Context API)
+- Add unit tests and loading states
+
+## 📄 License
+
+MIT
