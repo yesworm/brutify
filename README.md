@@ -6,7 +6,7 @@ Brutify lets you authenticate with your Spotify account, fetches your top tracks
 
 ## 🚀 Live Demo
 
-brutify.online
+[brutify.online](brutify.online)
 
 ## 🔧 Tech Stack
 
